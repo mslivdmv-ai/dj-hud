@@ -1,318 +1,198 @@
-/*==================================================
-    DG-HUD v2
-    Author: DG Development
-==================================================*/
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-:root{
-
-    --bg:rgba(14,14,20,.62);
-    --border:rgba(255,255,255,.08);
-
-    --purple:#9d4dff;
-    --purpleGlow:rgba(157,77,255,.35);
-
-    --white:#ffffff;
-    --gray:#9e9e9e;
-
-    --green:#4cff7c;
-    --red:#ff4f5e;
-    --orange:#ffb648;
-    --blue:#46b6ff;
-
-    --radius:16px;
-
-}
-
-*{
-
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Inter',sans-serif;
-
-    user-select:none;
-
-}
-
-body{
-
-    overflow:hidden;
-    background:transparent;
-    color:white;
-
-}
-
 /*==========================================
-            Compass
+            Vehicle HUD
 ==========================================*/
 
-#compass{
+#vehicleHud{
 
     position:absolute;
 
-    top:18px;
-    left:50%;
+    right:34px;
+    bottom:38px;
 
-    transform:translateX(-50%);
+    width:280px;
 
-    display:flex;
+    display:none;
 
-    gap:14px;
-
-    align-items:center;
-
-    padding:8px 18px;
-
-    border-radius:30px;
-
-    background:var(--bg);
-
-    border:1px solid var(--border);
-
-    backdrop-filter:blur(16px);
-
-}
-
-#heading{
-
-    font-size:18px;
-    font-weight:700;
-
-    color:var(--purple);
-
-}
-
-#degrees{
-
-    font-size:13px;
-
-    color:var(--gray);
-
-}
-
-#street{
-
-    font-size:14px;
+    animation:fadeIn .25s ease;
 
 }
 
 /*==========================================
-            Top Right
+        Circular Speedometer
 ==========================================*/
 
-#topRight{
-
-    position:absolute;
-
-    top:24px;
-    right:24px;
-
-    width:220px;
-
-}
-
-#logo{
-
-    width:120px;
-
-    display:block;
-
-    margin:auto;
-    margin-bottom:10px;
-
-}
-
-.smallPanel,
-.moneyPanel,
-.jobPanel{
-
-    margin-top:8px;
-
-    border-radius:14px;
-
-    background:var(--bg);
-
-    border:1px solid var(--border);
-
-    backdrop-filter:blur(15px);
-
-    padding:10px;
-
-}
-
-.row{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin:5px 0;
-
-    font-size:11px;
-
-    letter-spacing:.6px;
-
-}
-
-.row span:first-child{
-
-    color:#9d9d9d;
-
-    font-weight:600;
-
-}
-
-.row span:last-child{
-
-    color:white;
-
-    font-weight:700;
-
-}
-
-#job{
-
-    font-size:14px;
-
-    font-weight:700;
-
-    color:white;
-
-}
-
-#duty{
-
-    font-size:11px;
-
-    color:var(--green);
-
-    margin-top:4px;
-
-}
-
-/*==========================================
-        Bottom Left
-==========================================*/
-
-#leftHud{
-
-    position:absolute;
-
-    left:28px;
-    bottom:34px;
-
-}
-
-#voiceRow{
-
-    display:flex;
-
-    gap:10px;
-
-    margin-bottom:12px;
-
-}
-
-.voiceBubble{
-
-    width:34px;
-    height:34px;
-
-    border-radius:50%;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    background:var(--bg);
-
-    border:1px solid var(--border);
-
-}
-
-/*==========================================
-            Circular Minimap
-==========================================*/
-
-#circleMap{
+#speedCircle{
 
     position:relative;
 
-    width:180px;
-    height:180px;
+    width:190px;
+    height:190px;
 
-    margin:auto;
+    margin-left:auto;
 
     border-radius:50%;
 
-    overflow:hidden;
+    background:rgba(16,16,22,.72);
 
-    border:3px solid rgba(157,77,255,.45);
+    backdrop-filter:blur(18px);
+
+    border:2px solid rgba(157,77,255,.28);
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
 
     box-shadow:
-        0 0 25px rgba(157,77,255,.25),
-        inset 0 0 15px rgba(157,77,255,.18);
-
-    background:rgba(18,18,22,.45);
+        0 0 25px rgba(157,77,255,.18);
 
 }
 
-#mapMask{
+/* RPM Ring */
 
-    width:100%;
-    height:100%;
-
-    border-radius:50%;
-
-}
-
-/* Purple outer glow */
-
-#circleMap::after{
+#speedCircle::before{
 
     content:"";
 
     position:absolute;
 
-    inset:-8px;
+    inset:-6px;
 
     border-radius:50%;
 
-    border:2px solid rgba(157,77,255,.18);
+    border:6px solid rgba(255,255,255,.05);
 
-    pointer-events:none;
+}
+
+/* Animated Ring */
+
+#speedCircle::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-6px;
+
+    border-radius:50%;
+
+    border:6px solid transparent;
+
+    border-top-color:var(--purple);
+
+    transform:rotate(40deg);
+
+}
+
+/* Speed */
+
+#speed{
+
+    font-size:64px;
+
+    font-weight:700;
+
+    line-height:60px;
+
+    color:white;
+
+}
+
+#mph{
+
+    position:absolute;
+
+    bottom:52px;
+
+    font-size:13px;
+
+    letter-spacing:3px;
+
+    color:#b5b5b5;
 
 }
 
 /*==========================================
-        Status Circles
+            Gear
 ==========================================*/
 
-#statusCircles{
+#gearDisplay{
 
-    width:180px;
+    position:absolute;
 
-    margin:14px auto 0;
+    top:24px;
 
-    display:grid;
+    right:20px;
 
-    grid-template-columns:repeat(3,1fr);
+    font-size:18px;
 
-    gap:10px;
+    font-weight:700;
 
-    justify-items:center;
+    color:var(--purple);
 
 }
 
-.statusCircle{
+/*==========================================
+        Vehicle Information
+==========================================*/
 
-    width:30px;
-    height:30px;
+#vehicleInfo{
+
+    margin-top:16px;
+
+    background:rgba(16,16,22,.72);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:14px;
+
+    border:1px solid rgba(255,255,255,.06);
+
+    padding:14px;
+
+}
+
+#vehicleInfo div{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin:7px 0;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+#vehicleInfo span{
+
+    color:white;
+
+}
+
+/*==========================================
+        Bottom Icons
+==========================================*/
+
+#vehicleIcons{
+
+    margin-top:12px;
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:10px;
+
+}
+
+#vehicleIcons div{
+
+    width:44px;
+
+    height:44px;
 
     border-radius:50%;
 
@@ -322,146 +202,153 @@ body{
 
     align-items:center;
 
-    font-size:13px;
+    background:rgba(16,16,22,.72);
 
-    background:rgba(18,18,22,.70);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    box-shadow:
-        0 0 10px rgba(157,77,255,.18);
+    border:1px solid rgba(255,255,255,.06);
 
     transition:.25s;
 
-}
-
-.statusCircle:hover{
-
-    transform:scale(1.08);
+    font-size:18px;
 
 }
 
-/* Individual Colors */
-
-#healthCircle{
-
-    color:#ff4b5c;
-
-}
-
-#armorCircle{
-
-    color:#57a7ff;
-
-}
-
-#hungerCircle{
-
-    color:#ffbb33;
-
-}
-
-#thirstCircle{
-
-    color:#40d5ff;
-
-}
-
-#stressCircle{
-
-    color:#be6cff;
-
-}
-
-#staminaCircle{
-
-    color:#58ff95;
-
-}
-
-/*==========================================
-            Location
-==========================================*/
-
-#location{
-
-    width:180px;
-
-    margin:16px auto 0;
-
-    text-align:center;
-
-}
-
-#zone{
-
-    font-size:13px;
-
-    font-weight:700;
-
-    color:white;
-
-}
-
-#road{
-
-    margin-top:2px;
-
-    font-size:11px;
-
-    color:#9f9f9f;
-
-}
-
-/*==========================================
-            Voice
-==========================================*/
-
-.voiceBubble{
-
-    transition:.25s;
-
-    cursor:default;
-
-}
-
-.voiceBubble.active{
+#vehicleIcons div.active{
 
     color:var(--purple);
 
+    border-color:rgba(157,77,255,.55);
+
     box-shadow:
-        0 0 15px rgba(157,77,255,.45);
+        0 0 15px rgba(157,77,255,.32);
 
 }
 
-.voiceBubble.talking{
+#vehicleIcons div.warning{
 
-    background:rgba(157,77,255,.22);
+    color:#ff5858;
 
-    border-color:rgba(157,77,255,.65);
+    animation:pulse .7s infinite;
 
 }
 
 /*==========================================
-            Responsive
+            Fuel
 ==========================================*/
 
-@media screen and (max-width:1600px){
+.lowFuel{
 
-#topRight{
-
-    transform:scale(.92);
-
-    transform-origin:top right;
+    color:#ff5858 !important;
 
 }
 
-#leftHud{
+/*==========================================
+        Engine Damage
+==========================================*/
 
-    transform:scale(.92);
+.engineBad{
 
-    transform-origin:bottom left;
+    color:#ff5858 !important;
 
 }
+
+.engineMedium{
+
+    color:#ffbf40 !important;
+
+}
+
+.engineGood{
+
+    color:#57ff8a !important;
+
+}
+
+/*==========================================
+            Animations
+==========================================*/
+
+@keyframes pulse{
+
+0%{
+
+transform:scale(1);
+
+}
+
+50%{
+
+transform:scale(1.08);
+
+}
+
+100%{
+
+transform:scale(1);
+
+}
+
+}
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+
+transform:translateY(15px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+@keyframes fadeOut{
+
+from{
+
+opacity:1;
+
+}
+
+to{
+
+opacity:0;
+
+}
+
+}
+
+/*==========================================
+        Future Theme Support
+==========================================*/
+
+.theme-purple{
+
+--accent:#9d4dff;
+
+}
+
+.theme-blue{
+
+--accent:#4da6ff;
+
+}
+
+.theme-red{
+
+--accent:#ff4d68;
+
+}
+
+.theme-green{
+
+--accent:#48ff88;
 
 }
