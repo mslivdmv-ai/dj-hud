@@ -1,117 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DG-HUD</title>
 
-    <link rel="stylesheet" href="style.css">
-    <script defer src="script.js"></script>
+<meta charset="UTF-8">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>DG HUD</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script defer src="script.js"></script>
+
 </head>
+
 <body>
 
-    <!-- PLAYER HUD -->
-    <div id="hud">
+<!-- Compass -->
 
-        <div class="status health">
-            <span>❤️</span>
-            <div class="bar">
-                <div id="health-bar"></div>
-            </div>
+<div id="compass">
+
+    <span id="heading">N</span>
+
+    <span id="degrees">000°</span>
+
+    <span id="street">Power Street</span>
+
+</div>
+
+<!-- Top Right -->
+
+<div id="topRight">
+
+    <img id="logo" src="assets/logo.png">
+
+    <div class="smallPanel">
+
+        <div class="row">
+
+            <span>TIME</span>
+
+            <span id="time">11:42 PM</span>
+
         </div>
 
-        <div class="status armor">
-            <span>🛡️</span>
-            <div class="bar">
-                <div id="armor-bar"></div>
-            </div>
+        <div class="row">
+
+            <span>PLAYERS</span>
+
+            <span id="players">32/128</span>
+
         </div>
 
-        <div class="status hunger">
-            <span>🍔</span>
-            <div class="bar">
-                <div id="hunger-bar"></div>
-            </div>
-        </div>
+        <div class="row">
 
-        <div class="status thirst">
-            <span>💧</span>
-            <div class="bar">
-                <div id="thirst-bar"></div>
-            </div>
-        </div>
+            <span>ID</span>
 
-        <div class="status stress">
-            <span>🧠</span>
-            <div class="bar">
-                <div id="stress-bar"></div>
-            </div>
-        </div>
+            <span id="playerid">1</span>
 
-        <div class="status stamina">
-            <span>🏃</span>
-            <div class="bar">
-                <div id="stamina-bar"></div>
-            </div>
-        </div>
-
-        <div id="voice">
-            <span id="voice-icon">🎤</span>
-            <span id="voice-mode">Normal</span>
-        </div>
-
-        <div id="player-id">
-            ID: <span id="playerid">0</span>
-        </div>
-
-        <div id="street">
-            <span id="street-name">Loading...</span>
-        </div>
-
-        <div id="clock">
-            00:00
         </div>
 
     </div>
 
-    <!-- VEHICLE HUD -->
-    <div id="vehicleHud">
+    <div class="moneyPanel">
+
+        <div class="row">
+
+            <span>Cash</span>
+
+            <span id="cash">$0</span>
+
+        </div>
+
+        <div class="row">
+
+            <span>Bank</span>
+
+            <span id="bank">$0</span>
+
+        </div>
+
+        <div class="row">
+
+            <span>Dirty</span>
+
+            <span id="dirty">$0</span>
+
+        </div>
+
+    </div>
+
+    <div class="jobPanel">
+
+        <div id="job">
+
+            Police
+
+        </div>
+
+        <div id="duty">
+
+            On Duty
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Left Bottom -->
+
+<div id="leftHud">
+
+    <div id="voiceRow">
+
+        <div class="voiceBubble">
+
+            🎤
+
+        </div>
+
+        <div class="voiceBubble">
+
+            📻
+
+        </div>
+
+    </div>
+
+    <div id="circleMap">
+
+        <div id="mapMask"></div>
+
+    </div>
+
+    <div id="statusCircles">
+
+        <div class="statusCircle" id="healthCircle">
+
+            ❤
+
+        </div>
+
+        <div class="statusCircle" id="armorCircle">
+
+            🛡
+
+        </div>
+
+        <div class="statusCircle" id="hungerCircle">
+
+            🍔
+
+        </div>
+
+        <div class="statusCircle" id="thirstCircle">
+
+            💧
+
+        </div>
+
+        <div class="statusCircle" id="stressCircle">
+
+            🧠
+
+        </div>
+
+        <div class="statusCircle" id="staminaCircle">
+
+            🏃
+
+        </div>
+
+    </div>
+
+    <div id="location">
+
+        <div id="zone">
+
+            Legion Square
+
+        </div>
+
+        <div id="road">
+
+            Power Street
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Vehicle HUD -->
+
+<div id="vehicleHud">
+
+    <div id="speedCircle">
 
         <div id="speed">
-            <span id="speed-value">0</span>
-            <small>MPH</small>
+
+            0
+
         </div>
 
-        <div id="gear">
-            Gear:
-            <span id="gear-value">N</span>
+        <div id="mph">
+
+            MPH
+
         </div>
 
-        <div id="rpm">
-            <div id="rpm-fill"></div>
+    </div>
+
+    <div id="vehicleInfo">
+
+        <div>
+
+            Fuel
+
+            <span id="fuel">
+
+                100%
+
+            </span>
+
         </div>
 
-        <div id="fuel">
-            ⛽
-            <span id="fuel-value">100%</span>
+        <div>
+
+            Engine
+
+            <span id="engine">
+
+                100%
+
+            </span>
+
         </div>
+
+    </div>
+
+    <div id="vehicleIcons">
 
         <div id="seatbelt">
+
             🔒
+
+        </div>
+
+        <div id="lights">
+
+            💡
+
         </div>
 
         <div id="cruise">
-            🛣️
+
+            🚗
+
         </div>
 
-        <div id="engine">
-            ⚙️
+        <div id="lock">
+
+            🔐
+
         </div>
 
     </div>
 
+</div>
+
 </body>
+
 </html>
