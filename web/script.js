@@ -1,79 +1,43 @@
 //======================================
-// Vehicle HUD
+// DG-HUD UI Manager
 //======================================
 
-function updateVehicle(data){
+const UI = {
 
-    showVehicle(data.show);
+    visible: true,
 
-    if(!data.show){
-        return;
-    }
+    vehicle: false,
 
-    // Speed
-    HUD.speed.innerHTML = data.speed;
+    theme: "purple",
 
-    // Gear
-    if(data.gear == 0){
+    setVisible(state){
 
-        HUD.gear.innerHTML = "R";
+        this.visible = state;
 
-    }else if(data.gear == 1 && data.speed == 0){
+        document.body.style.display =
+            state ? "block" : "none";
 
-        HUD.gear.innerHTML = "P";
+    },
 
-    }else{
+    setVehicle(state){
 
-        HUD.gear.innerHTML = data.gear;
+        this.vehicle = state;
 
-    }
+        HUD.vehicleHud.style.display =
+            state ? "block" : "none";
 
-    // Fuel
+    },
 
-    HUD.fuel.innerHTML = data.fuel + "%";
+    setTheme(theme){
 
-    if(data.fuel <= 15){
+        this.theme = theme;
 
-        HUD.fuel.classList.add("lowFuel");
+        document.body.className = "";
 
-    }else{
-
-        HUD.fuel.classList.remove("lowFuel");
+        document.body.classList.add(
+            "theme-" + theme
+        );
 
     }
 
-    // Engine
-
-    HUD.engine.innerHTML = Math.floor(data.engine) + "%";
-
-    HUD.engine.classList.remove(
-        "engineGood",
-        "engineMedium",
-        "engineBad"
-    );
-
-    if(data.engine >= 75){
-
-        HUD.engine.classList.add("engineGood");
-
-    }else if(data.engine >= 40){
-
-        HUD.engine.classList.add("engineMedium");
-
-    }else{
-
-        HUD.engine.classList.add("engineBad");
-
-    }
-
-    // Icons
-
-    setActive(HUD.seatbelt,data.seatbelt);
-
-    setActive(HUD.cruise,data.cruise);
-
-    setActive(HUD.lights,data.lights);
-
-    setActive(HUD.lock,data.lock);
-
-}
+};
