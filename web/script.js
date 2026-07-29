@@ -198,6 +198,16 @@ function updatePlayer(data){
 }
 
 //======================================
+// Time
+//======================================
+
+function updateClock(time){
+
+    HUD.time.innerHTML = time;
+
+}
+
+//======================================
 // Receive Messages (Dispatcher)
 //======================================
 
