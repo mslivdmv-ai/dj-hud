@@ -9,6 +9,20 @@ DGHUD = {}
 DGHUD.Version = "1.0.0"
 
 -------------------------------------
+-- Helpers
+-------------------------------------
+
+local PlayerSettings = {}
+
+local function GetIdentifierFromSource(src)
+    local xPlayer = ESX.GetPlayerFromId(src)
+    if xPlayer and xPlayer.identifier then
+        return xPlayer.identifier
+    end
+    return nil
+end
+
+-------------------------------------
 -- Callbacks
 -------------------------------------
 
@@ -61,35 +75,70 @@ lib.callback.register("dg-hud:getPlayerData", function(source)
 end)
 
 -------------------------------------
--- Save HUD Preferences
+-- Save HUD Preferences (by identifier)
 -------------------------------------
-
-local PlayerSettings = {}
 
 RegisterNetEvent("dg-hud:saveSettings", function(settings)
 
     local src = source
+    local identifier = GetIdentifierFromSource(src)
+    if not identifier then return end
 
-    PlayerSettings[src] = settings
+    PlayerSettings[identifier] = settings
+
+    -- Persist to DB when enabled
+    if Config and Config.SaveSettings then
+        local ok, jsonSettings = pcall(function() return json.encode(settings) end)
+        if ok and jsonSettings then
+            -- Use oxmysql to insert or update
+            exports.oxmysql:execute(
+                "INSERT INTO `" .. Config.SettingsTable .. "` (`identifier`,`settings`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `settings` = ?",
+                { identifier, jsonSettings, jsonSettings }
+            )
+        end
+    end
 
 end)
 
 lib.callback.register("dg-hud:getSettings", function(source)
 
-    return PlayerSettings[source] or {
+    local identifier = GetIdentifierFromSource(source)
+    if not identifier then
+        return {
+            theme = "purple",
+            minimap = true,
+            cinematic = false,
+            speedUnit = (Config and Config.SpeedUnit) or "MPH",
+            compass = true,
+            vehicleHud = true
+        }
+    end
 
+    -- in-memory
+    if PlayerSettings[identifier] then
+        return PlayerSettings[identifier]
+    end
+
+    -- try DB
+    if Config and Config.SaveSettings then
+        local result = exports.oxmysql:executeSync("SELECT settings FROM `" .. Config.SettingsTable .. "` WHERE identifier = ?", { identifier })
+        if result and result[1] and result[1].settings then
+            local ok, decoded = pcall(function() return json.decode(result[1].settings) end)
+            if ok and decoded then
+                PlayerSettings[identifier] = decoded
+                return decoded
+            end
+        end
+    end
+
+    -- fallback default
+    return {
         theme = "purple",
-
         minimap = true,
-
         cinematic = false,
-
-        speedUnit = Config.SpeedUnit,
-
+        speedUnit = (Config and Config.SpeedUnit) or "MPH",
         compass = true,
-
         vehicleHud = true
-
     }
 
 end)
@@ -98,10 +147,12 @@ end)
 -- Cleanup
 -------------------------------------
 
-AddEventHandler("playerDropped", function()
-
-    PlayerSettings[source] = nil
-
+AddEventHandler("playerDropped", function(reason)
+    local src = source
+    local identifier = GetIdentifierFromSource(src)
+    if identifier then
+        PlayerSettings[identifier] = nil
+    end
 end)
 
 -------------------------------------
@@ -123,13 +174,13 @@ end)
 -------------------------------------
 
 exports("GetPlayerSettings", function(id)
-
-    return PlayerSettings[id]
-
+    local identifier = GetIdentifierFromSource(id)
+    if not identifier then return nil end
+    return PlayerSettings[identifier]
 end)
 
 exports("SetPlayerSettings", function(id,data)
-
-    PlayerSettings[id] = data
-
+    local identifier = GetIdentifierFromSource(id)
+    if not identifier then return end
+    PlayerSettings[identifier] = data
 end)
