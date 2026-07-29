@@ -1,85 +1,35 @@
-Config = {}
+--======================================
+-- Theme
+--======================================
 
--- Framework
-Config.Framework = "esx"
+Config.DefaultTheme = "purple"
 
--- HUD
-Config.EnableHud = true
-Config.ShowMinimap = true
-Config.CircleMap = true
-Config.ShowCompass = true
-Config.ShowStreet = true
-Config.ShowClock = true
-Config.ShowPlayerID = true
+Config.AllowThemes = true
 
--- Status
-Config.ShowHealth = true
-Config.ShowArmor = true
-Config.ShowHunger = true
-Config.ShowThirst = true
-Config.ShowStress = true
-Config.ShowStamina = true
-Config.ShowVoice = true
-Config.ShowFuel = true
+Config.AllowHudMove = true
 
--- Vehicle HUD
-Config.EnableVehicleHud = true
-Config.ShowSpeed = true
-Config.SpeedUnit = "MPH" -- MPH or KMH
-Config.ShowRPM = true
-Config.ShowGear = true
-Config.ShowSeatbelt = true
-Config.ShowEngine = true
-Config.ShowFuelLevel = true
+Config.AllowScale = true
 
--- Seatbelt
-Config.SeatbeltKey = "B"
-Config.SeatbeltEject = true
-Config.MinimumEjectSpeed = 55
+Config.AllowOpacity = true
 
--- Voice
-Config.VoiceScript = "pma-voice"
+--======================================
+-- Performance
+--======================================
 
-Config.VoiceRanges = {
-    [1] = 2.5,
-    [2] = 8.0,
-    [3] = 20.0
-}
+Config.UpdateRate = 100
 
--- Fuel
-Config.FuelScript = "ox_fuel"
+Config.StatusRate = 500
 
--- Inventory
-Config.Inventory = "ox_inventory"
+Config.CompassRate = 200
 
--- Banking
-Config.Banking = "renewed"
+Config.PlayerRate = 1000
 
--- Notifications
-Config.Notify = "ox_lib"
+Config.VehicleRate = 50
 
--- Stress
-Config.EnableStress = true
-Config.MaxStress = 100
+--======================================
+-- Database
+--======================================
 
--- Compass
-Config.CompassFollowCamera = true
-Config.ShowHeadingDegrees = false
+Config.SaveSettings = false
 
--- Minimap
-Config.MinimapZoom = 1100
-
--- Vehicle Cruise Control
-Config.EnableCruiseControl = true
-Config.CruiseKey = "Y"
-
--- Cinematic Mode
-Config.EnableCinematic = true
-Config.CinematicKey = "F10"
-
--- HUD Toggle
-Config.ToggleHudCommand = "hud"
-Config.ToggleHudKey = "F9"
-
--- Debug
-Config.Debug = false
+Config.SettingsTable = "dg_hud"
