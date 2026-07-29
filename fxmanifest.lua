@@ -13,7 +13,13 @@ shared_scripts {
 }
 
 client_scripts {
-    'client/*.lua'
+    'client/main.lua',
+    'client/status.lua',
+    'client/voice.lua',
+    'client/vehicle.lua',
+    'client/compass.lua',
+    'client/player.lua',
+    'client/minimap.lua'
 }
 
 server_scripts {
