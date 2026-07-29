@@ -1,114 +1,134 @@
-// DG-HUD NUI
+//==================================================
+// DG-HUD
+// Main NUI Script
+//==================================================
 
-const hud = document.getElementById("hud");
-const vehicleHud = document.getElementById("vehicleHud");
+const HUD = {
 
-// Status Bars
-const health = document.getElementById("health-bar");
-const armor = document.getElementById("armor-bar");
-const hunger = document.getElementById("hunger-bar");
-const thirst = document.getElementById("thirst-bar");
-const stress = document.getElementById("stress-bar");
-const stamina = document.getElementById("stamina-bar");
+    compass: document.getElementById("compass"),
 
-// Vehicle
-const speed = document.getElementById("speed-value");
-const gear = document.getElementById("gear-value");
-const fuel = document.getElementById("fuel-value");
-const rpm = document.getElementById("rpm-fill");
+    heading: document.getElementById("heading"),
+    degrees: document.getElementById("degrees"),
+    street: document.getElementById("street"),
 
-// Voice
-const voiceMode = document.getElementById("voice-mode");
-const voiceIcon = document.getElementById("voice-icon");
+    time: document.getElementById("time"),
+    players: document.getElementById("players"),
+    playerid: document.getElementById("playerid"),
 
-// Clock
-const clock = document.getElementById("clock");
+    cash: document.getElementById("cash"),
+    bank: document.getElementById("bank"),
+    dirty: document.getElementById("dirty"),
 
-// Update Clock
-setInterval(() => {
-    const now = new Date();
+    job: document.getElementById("job"),
+    duty: document.getElementById("duty"),
 
-    clock.innerText =
-        now.getHours().toString().padStart(2, "0") +
-        ":" +
-        now.getMinutes().toString().padStart(2, "0");
-}, 1000);
+    zone: document.getElementById("zone"),
+    road: document.getElementById("road"),
 
-// Listen for Lua Messages
-window.addEventListener("message", function (event) {
+    vehicleHud: document.getElementById("vehicleHud"),
+
+    speed: document.getElementById("speed"),
+
+    fuel: document.getElementById("fuel"),
+    engine: document.getElementById("engine"),
+
+    gear: document.getElementById("gearDisplay"),
+
+    seatbelt: document.getElementById("seatbelt"),
+    lights: document.getElementById("lights"),
+    cruise: document.getElementById("cruise"),
+    lock: document.getElementById("lock"),
+
+    health: document.getElementById("healthCircle"),
+    armor: document.getElementById("armorCircle"),
+    hunger: document.getElementById("hungerCircle"),
+    thirst: document.getElementById("thirstCircle"),
+    stress: document.getElementById("stressCircle"),
+    stamina: document.getElementById("staminaCircle")
+
+};
+
+let HudVisible = true;
+
+//======================================
+// Helper Functions
+//======================================
+
+function showVehicle(show){
+
+    HUD.vehicleHud.style.display = show ? "block" : "none";
+
+}
+
+function setCirclePercent(element,value){
+
+    value = Math.max(0,Math.min(100,value));
+
+    element.style.opacity = (.35 + (value/100)).toFixed(2);
+
+}
+
+function moneyFormat(amount){
+
+    return "$"+Number(amount).toLocaleString();
+
+}
+
+function setActive(element,state){
+
+    if(state){
+
+        element.classList.add("active");
+
+    }else{
+
+        element.classList.remove("active");
+
+    }
+
+}
+
+//======================================
+// Receive Messages
+//======================================
+
+window.addEventListener("message",(event)=>{
 
     const data = event.data;
 
-    switch (data.action) {
+    switch(data.action){
 
         case "toggleHud":
 
-            hud.style.display = data.state ? "flex" : "none";
+            HudVisible = data.state;
+
+            document.body.style.display =
+                HudVisible ? "block" : "none";
 
         break;
 
-        case "status":
+        case "player":
 
-            health.style.width = `${data.health}%`;
-            armor.style.width = `${data.armor}%`;
-            hunger.style.width = `${data.hunger}%`;
-            thirst.style.width = `${data.thirst}%`;
-            stress.style.width = `${data.stress}%`;
-            stamina.style.width = `${data.stamina}%`;
+            HUD.cash.innerHTML =
+                moneyFormat(data.cash);
 
-        break;
+            HUD.bank.innerHTML =
+                moneyFormat(data.bank);
 
-        case "voice":
+            HUD.dirty.innerHTML =
+                moneyFormat(data.dirty);
 
-            voiceIcon.style.color = data.talking ? "#00ff88" : "#ffffff";
+            HUD.job.innerHTML =
+                data.job;
 
-            switch (data.mode) {
+            HUD.duty.innerHTML =
+                data.duty;
 
-                case 1:
-                    voiceMode.innerText = "Whisper";
-                break;
+            HUD.playerid.innerHTML =
+                data.id;
 
-                case 2:
-                    voiceMode.innerText = "Normal";
-                break;
-
-                case 3:
-                    voiceMode.innerText = "Shouting";
-                break;
-
-            }
-
-        break;
-
-        case "vehicleUpdate":
-
-            vehicleHud.style.display = data.show ? "block" : "none";
-
-            if (!data.show) return;
-
-            speed.innerText = data.speed;
-            gear.innerText = data.gear === 0 ? "R" : data.gear;
-            fuel.innerText = `${data.fuel}%`;
-
-            rpm.style.width = `${data.rpm}%`;
-
-            document
-                .getElementById("seatbelt")
-                .classList.toggle("active", data.seatbelt);
-
-            document
-                .getElementById("cruise")
-                .classList.toggle("active", data.cruise);
-
-            if (data.fuel <= 15) {
-
-                fuel.parentElement.classList.add("lowFuel");
-
-            } else {
-
-                fuel.parentElement.classList.remove("lowFuel");
-
-            }
+            HUD.players.innerHTML =
+                data.online + "/" + data.maxPlayers;
 
         break;
 
