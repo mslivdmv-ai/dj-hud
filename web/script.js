@@ -169,6 +169,35 @@ function updateVehicle(data){
 }
 
 //======================================
+// Player Information
+//======================================
+
+function updatePlayer(data){
+
+    HUD.cash.innerHTML =
+        moneyFormat(data.cash);
+
+    HUD.bank.innerHTML =
+        moneyFormat(data.bank);
+
+    HUD.dirty.innerHTML =
+        moneyFormat(data.dirty);
+
+    HUD.job.innerHTML =
+        data.job;
+
+    HUD.duty.innerHTML =
+        data.duty;
+
+    HUD.playerid.innerHTML =
+        data.id;
+
+    HUD.players.innerHTML =
+        data.online + "/" + data.maxPlayers;
+
+}
+
+//======================================
 // Receive Messages (Dispatcher)
 //======================================
 
