@@ -234,3 +234,234 @@ body{
     border:1px solid var(--border);
 
 }
+
+/*==========================================
+            Circular Minimap
+==========================================*/
+
+#circleMap{
+
+    position:relative;
+
+    width:180px;
+    height:180px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    overflow:hidden;
+
+    border:3px solid rgba(157,77,255,.45);
+
+    box-shadow:
+        0 0 25px rgba(157,77,255,.25),
+        inset 0 0 15px rgba(157,77,255,.18);
+
+    background:rgba(18,18,22,.45);
+
+}
+
+#mapMask{
+
+    width:100%;
+    height:100%;
+
+    border-radius:50%;
+
+}
+
+/* Purple outer glow */
+
+#circleMap::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-8px;
+
+    border-radius:50%;
+
+    border:2px solid rgba(157,77,255,.18);
+
+    pointer-events:none;
+
+}
+
+/*==========================================
+        Status Circles
+==========================================*/
+
+#statusCircles{
+
+    width:180px;
+
+    margin:14px auto 0;
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:10px;
+
+    justify-items:center;
+
+}
+
+.statusCircle{
+
+    width:30px;
+    height:30px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:13px;
+
+    background:rgba(18,18,22,.70);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 0 10px rgba(157,77,255,.18);
+
+    transition:.25s;
+
+}
+
+.statusCircle:hover{
+
+    transform:scale(1.08);
+
+}
+
+/* Individual Colors */
+
+#healthCircle{
+
+    color:#ff4b5c;
+
+}
+
+#armorCircle{
+
+    color:#57a7ff;
+
+}
+
+#hungerCircle{
+
+    color:#ffbb33;
+
+}
+
+#thirstCircle{
+
+    color:#40d5ff;
+
+}
+
+#stressCircle{
+
+    color:#be6cff;
+
+}
+
+#staminaCircle{
+
+    color:#58ff95;
+
+}
+
+/*==========================================
+            Location
+==========================================*/
+
+#location{
+
+    width:180px;
+
+    margin:16px auto 0;
+
+    text-align:center;
+
+}
+
+#zone{
+
+    font-size:13px;
+
+    font-weight:700;
+
+    color:white;
+
+}
+
+#road{
+
+    margin-top:2px;
+
+    font-size:11px;
+
+    color:#9f9f9f;
+
+}
+
+/*==========================================
+            Voice
+==========================================*/
+
+.voiceBubble{
+
+    transition:.25s;
+
+    cursor:default;
+
+}
+
+.voiceBubble.active{
+
+    color:var(--purple);
+
+    box-shadow:
+        0 0 15px rgba(157,77,255,.45);
+
+}
+
+.voiceBubble.talking{
+
+    background:rgba(157,77,255,.22);
+
+    border-color:rgba(157,77,255,.65);
+
+}
+
+/*==========================================
+            Responsive
+==========================================*/
+
+@media screen and (max-width:1600px){
+
+#topRight{
+
+    transform:scale(.92);
+
+    transform-origin:top right;
+
+}
+
+#leftHud{
+
+    transform:scale(.92);
+
+    transform-origin:bottom left;
+
+}
+
+}
