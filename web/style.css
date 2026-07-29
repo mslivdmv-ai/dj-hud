@@ -1,263 +1,236 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    user-select: none;
-    font-family: 'Inter', sans-serif;
+/*==================================================
+    DG-HUD v2
+    Author: DG Development
+==================================================*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root{
+
+    --bg:rgba(14,14,20,.62);
+    --border:rgba(255,255,255,.08);
+
+    --purple:#9d4dff;
+    --purpleGlow:rgba(157,77,255,.35);
+
+    --white:#ffffff;
+    --gray:#9e9e9e;
+
+    --green:#4cff7c;
+    --red:#ff4f5e;
+    --orange:#ffb648;
+    --blue:#46b6ff;
+
+    --radius:16px;
+
 }
 
-body {
-    overflow: hidden;
-    color: #fff;
-    background: transparent;
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+
+    user-select:none;
+
 }
 
-/* ==========================
-   PLAYER HUD
-========================== */
+body{
 
-#hud {
-    position: absolute;
-    left: 2%;
-    bottom: 3%;
-    width: 320px;
+    overflow:hidden;
+    background:transparent;
+    color:white;
 
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
 }
 
-.status {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+/*==========================================
+            Compass
+==========================================*/
 
-    padding: 8px 12px;
-
-    background: rgba(20,20,20,.55);
-    backdrop-filter: blur(12px);
-
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 10px;
-}
-
-.bar {
-    flex: 1;
-
-    height: 8px;
-
-    background: rgba(255,255,255,.08);
-
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.bar div{
-    width:100%;
-    height:100%;
-
-    transition: width .25s ease;
-}
-
-/* Colors */
-
-#health-bar{
-    background:#ff4d4d;
-}
-
-#armor-bar{
-    background:#4da3ff;
-}
-
-#hunger-bar{
-    background:#ffb84d;
-}
-
-#thirst-bar{
-    background:#3dc7ff;
-}
-
-#stress-bar{
-    background:#b84dff;
-}
-
-#stamina-bar{
-    background:#44ff88;
-}
-
-/* Voice */
-
-#voice{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    padding:10px 12px;
-
-    border-radius:10px;
-
-    background:rgba(20,20,20,.55);
-    backdrop-filter:blur(12px);
-}
-
-/* Street */
-
-#street{
-
-    padding:10px 12px;
-
-    background:rgba(20,20,20,.55);
-    border-radius:10px;
-}
-
-/* Clock */
-
-#clock{
-    width:90px;
-
-    padding:8px;
-
-    text-align:center;
-
-    background:rgba(20,20,20,.55);
-
-    border-radius:10px;
-}
-
-/* ==========================
-      VEHICLE HUD
-========================== */
-
-#vehicleHud{
+#compass{
 
     position:absolute;
 
-    right:3%;
-    bottom:5%;
+    top:18px;
+    left:50%;
 
-    width:260px;
+    transform:translateX(-50%);
 
-    display:none;
+    display:flex;
 
-    padding:18px;
+    gap:14px;
 
-    border-radius:18px;
+    align-items:center;
 
-    background:rgba(20,20,20,.60);
+    padding:8px 18px;
 
-    backdrop-filter:blur(15px);
+    border-radius:30px;
 
-    border:1px solid rgba(255,255,255,.08);
+    background:var(--bg);
+
+    border:1px solid var(--border);
+
+    backdrop-filter:blur(16px);
+
 }
 
-#speed{
+#heading{
 
-    text-align:center;
-
-    font-size:56px;
+    font-size:18px;
     font-weight:700;
+
+    color:var(--purple);
+
 }
 
-#speed small{
+#degrees{
 
-    display:block;
+    font-size:13px;
+
+    color:var(--gray);
+
+}
+
+#street{
 
     font-size:14px;
 
-    color:#bbb;
 }
 
-#gear,
-#fuel,
-#seatbelt,
-#engine,
-#cruise{
+/*==========================================
+            Top Right
+==========================================*/
 
-    margin-top:10px;
+#topRight{
+
+    position:absolute;
+
+    top:24px;
+    right:24px;
+
+    width:220px;
+
+}
+
+#logo{
+
+    width:120px;
+
+    display:block;
+
+    margin:auto;
+    margin-bottom:10px;
+
+}
+
+.smallPanel,
+.moneyPanel,
+.jobPanel{
+
+    margin-top:8px;
+
+    border-radius:14px;
+
+    background:var(--bg);
+
+    border:1px solid var(--border);
+
+    backdrop-filter:blur(15px);
+
+    padding:10px;
+
+}
+
+.row{
 
     display:flex;
 
     justify-content:space-between;
 
-    font-size:16px;
-}
+    align-items:center;
 
-/* RPM */
+    margin:5px 0;
 
-#rpm{
+    font-size:11px;
 
-    width:100%;
-
-    height:8px;
-
-    margin-top:15px;
-
-    background:#333;
-
-    border-radius:20px;
-
-    overflow:hidden;
-}
-
-#rpm-fill{
-
-    width:0%;
-
-    height:100%;
-
-    background:#00ff88;
-
-    transition:width .1s linear;
-}
-
-/* Low Fuel */
-
-.lowFuel{
-
-    color:#ff4444;
-}
-
-/* Seatbelt */
-
-.active{
-
-    color:#00ff88;
-}
-
-/* Fade */
-
-.fadeIn{
-
-    animation:fadeIn .2s ease;
-}
-
-.fadeOut{
-
-    animation:fadeOut .2s ease;
-}
-
-@keyframes fadeIn{
-
-from{
-opacity:0;
-transform:translateY(10px);
-}
-
-to{
-opacity:1;
-transform:translateY(0);
-}
+    letter-spacing:.6px;
 
 }
 
-@keyframes fadeOut{
+.row span:first-child{
 
-from{
-opacity:1;
+    color:#9d9d9d;
+
+    font-weight:600;
+
 }
 
-to{
-opacity:0;
+.row span:last-child{
+
+    color:white;
+
+    font-weight:700;
+
 }
+
+#job{
+
+    font-size:14px;
+
+    font-weight:700;
+
+    color:white;
+
+}
+
+#duty{
+
+    font-size:11px;
+
+    color:var(--green);
+
+    margin-top:4px;
+
+}
+
+/*==========================================
+        Bottom Left
+==========================================*/
+
+#leftHud{
+
+    position:absolute;
+
+    left:28px;
+    bottom:34px;
+
+}
+
+#voiceRow{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-bottom:12px;
+
+}
+
+.voiceBubble{
+
+    width:34px;
+    height:34px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:var(--bg);
+
+    border:1px solid var(--border);
 
 }
