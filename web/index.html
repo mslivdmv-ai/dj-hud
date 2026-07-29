@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DG-HUD</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- PLAYER HUD -->
+    <div id="hud">
+
+        <div class="status health">
+            <span>❤️</span>
+            <div class="bar">
+                <div id="health-bar"></div>
+            </div>
+        </div>
+
+        <div class="status armor">
+            <span>🛡️</span>
+            <div class="bar">
+                <div id="armor-bar"></div>
+            </div>
+        </div>
+
+        <div class="status hunger">
+            <span>🍔</span>
+            <div class="bar">
+                <div id="hunger-bar"></div>
+            </div>
+        </div>
+
+        <div class="status thirst">
+            <span>💧</span>
+            <div class="bar">
+                <div id="thirst-bar"></div>
+            </div>
+        </div>
+
+        <div class="status stress">
+            <span>🧠</span>
+            <div class="bar">
+                <div id="stress-bar"></div>
+            </div>
+        </div>
+
+        <div class="status stamina">
+            <span>🏃</span>
+            <div class="bar">
+                <div id="stamina-bar"></div>
+            </div>
+        </div>
+
+        <div id="voice">
+            <span id="voice-icon">🎤</span>
+            <span id="voice-mode">Normal</span>
+        </div>
+
+        <div id="player-id">
+            ID: <span id="playerid">0</span>
+        </div>
+
+        <div id="street">
+            <span id="street-name">Loading...</span>
+        </div>
+
+        <div id="clock">
+            00:00
+        </div>
+
+    </div>
+
+    <!-- VEHICLE HUD -->
+    <div id="vehicleHud">
+
+        <div id="speed">
+            <span id="speed-value">0</span>
+            <small>MPH</small>
+        </div>
+
+        <div id="gear">
+            Gear:
+            <span id="gear-value">N</span>
+        </div>
+
+        <div id="rpm">
+            <div id="rpm-fill"></div>
+        </div>
+
+        <div id="fuel">
+            ⛽
+            <span id="fuel-value">100%</span>
+        </div>
+
+        <div id="seatbelt">
+            🔒
+        </div>
+
+        <div id="cruise">
+            🛣️
+        </div>
+
+        <div id="engine">
+            ⚙️
+        </div>
+
+    </div>
+
+</body>
+</html>
