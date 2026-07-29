@@ -76,6 +76,12 @@ CreateThread(function()
 
         })
 
+        -- Send server clock to NUI
+        SendNUIMessage({
+            action = "clock",
+            time = os.date("%I:%M %p")
+        })
+
         ::continue::
 
     end
